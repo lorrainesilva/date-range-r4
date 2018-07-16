@@ -128,6 +128,13 @@ public abstract class ReminderActivity extends Activity {
 	/*** added by dDateRange
 	 */
 	private void setValuesOnReminder() throws Exception {
+		if (dateStart.equals(dateFinal)) {
+			if (timeStart.get(Calendar.HOUR_OF_DAY) * 60 + timeStart.get(Calendar.MINUTE) >
+					timeFinal.get(Calendar.HOUR_OF_DAY) * 60 + timeFinal.get(Calendar.MINUTE)) {
+			throw new InvalidHourException(timeStart); }
+		} else if (dateStart.after(dateFinal)) {
+			throw new InvalidDateException(dateStart);
+		}
 		reminder.setDateStart(dateToString(dateStart));
 		reminder.setHourStart(timeToString(timeStart));
 		reminder.setDateFinal(dateToString(dateFinal));
